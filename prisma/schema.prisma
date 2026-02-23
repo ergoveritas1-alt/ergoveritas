@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Receipt {
+  id              String   @id @default(cuid())
+  hash_algorithm  String
+  hash_value      String
+  visibility      String   @default("public")
+  created_at      DateTime @default(now())
+  signature_b64   String
+  kid             String
+  anchor_status   String   @default("none")
+  anchor_batch_id String?
+
+  anchor_batch Batch?    @relation(fields: [anchor_batch_id], references: [id])
+  disputes     Dispute[]
+
+  @@unique([hash_algorithm, hash_value])
+}
+
+model Batch {
+  id               String    @id @default(cuid())
+  merkle_root      String
+  created_at       DateTime  @default(now())
+  status           String    @default("built")
+  receipt_ids_json String
+
+  receipts Receipt[]
+}
+
+model Dispute {
+  id            String   @id @default(cuid())
+  receipt_id    String
+  reason        String
+  details       String?
+  contact_email String
+  evidence_urls String?
+  wants_idv     Boolean  @default(false)
+  status        String   @default("new")
+  created_at    DateTime @default(now())
+
+  receipt Receipt @relation(fields: [receipt_id], references: [id], onDelete: Cascade)
+}
