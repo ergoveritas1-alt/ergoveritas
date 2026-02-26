@@ -112,20 +112,43 @@ export default function HomePage() {
             </div>
           </div>
 
-          <aside className="rounded-2xl border border-slate-200 bg-slate-50/80 p-6 shadow-sm shadow-slate-200/70">
-            <p className="text-xs uppercase tracking-[0.18em] text-slate-500">Why this matters</p>
+          <aside className="relative rounded-2xl border border-slate-200 bg-slate-50/80 p-6 shadow-sm shadow-slate-200/70">
+            <a
+              href="https://ergoveritas.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="absolute right-4 top-4 rounded-md border border-slate-200 bg-white p-1"
+              aria-label="Open ErgoVeritas website"
+            >
+              <img
+                src="https://api.qrserver.com/v1/create-qr-code/?size=72x72&data=https%3A%2F%2Fergoveritas.com"
+                alt="QR code linking to ergoveritas.com"
+                width={72}
+                height={72}
+              />
+            </a>
+            <p className="text-xs uppercase tracking-[0.18em] text-slate-500">Registration Preview</p>
             <h2 className="mt-3 text-xl font-semibold tracking-tight text-slate-900">
-              Public capture can become an AI exposure pathway
+              Ready to verify later
             </h2>
-            <p className="mt-2 text-sm leading-relaxed text-slate-700">
-              AI training pipelines often use large public web corpora and derivatives. If your
-              pages, transcripts, or media references are captured publicly, that can become a likely pathway into
-              downstream training datasets.
+            <p className="mt-4 text-sm leading-relaxed text-slate-700">
+              Save a clean record after registration and share it when timing verification is
+              needed.
             </p>
-            <p className="mt-3 text-sm leading-relaxed text-slate-700">
-              ErgoVeritas helps you document facts early and produce evidence-ready records when
-              legal, partner, or policy decisions require clarity.
-            </p>
+            <div className="mt-5 space-y-3">
+              <div className="rounded-xl border border-slate-200 bg-white px-4 py-3">
+                <p className="text-xs uppercase tracking-[0.12em] text-slate-500">Network Status</p>
+                <p className="mt-1 text-sm text-slate-900">Recorded on a public network</p>
+              </div>
+              <div className="rounded-xl border border-slate-200 bg-white px-4 py-3">
+                <p className="text-xs uppercase tracking-[0.12em] text-slate-500">Transaction Reference</p>
+                <p className="mt-1 text-sm text-slate-900">0x7f3a...8c12</p>
+              </div>
+              <div className="rounded-xl border border-slate-200 bg-white px-4 py-3">
+                <p className="text-xs uppercase tracking-[0.12em] text-slate-500">Timestamp</p>
+                <p className="mt-1 text-sm text-slate-900">2026-02-24 19:12 UTC</p>
+              </div>
+            </div>
           </aside>
         </div>
       </section>

@@ -117,9 +117,10 @@ export default function RootLayout({
                 </Link>
               </nav>
             </div>
-            <p className="mx-auto w-full max-w-6xl px-6 pb-6 text-xs text-slate-400">
-              © 2026 Ergoveritas.com. All rights reserved.
-            </p>
+            <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 pb-6 text-xs text-slate-400">
+              <p>© 2026 Ergoveritas.com. All rights reserved.</p>
+              <p>Creare humanum est</p>
+            </div>
           </footer>
         </AuthSessionProvider>
       </body>
