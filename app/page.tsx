@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { AuthStatusChip } from "@/components/auth-status-chip";
+import { LiveUtcTimestamp } from "@/components/live-utc-timestamp";
+import { RandomTransactionReference } from "@/components/random-transaction-reference";
 
 const howItWorks = [
   {
@@ -142,11 +144,15 @@ export default function HomePage() {
               </div>
               <div className="rounded-xl border border-slate-200 bg-white px-4 py-3">
                 <p className="text-xs uppercase tracking-[0.12em] text-slate-500">Transaction Reference</p>
-                <p className="mt-1 text-sm text-slate-900">0x7f3a...8c12</p>
+                <p className="mt-1 text-sm text-slate-900">
+                  <RandomTransactionReference />
+                </p>
               </div>
               <div className="rounded-xl border border-slate-200 bg-white px-4 py-3">
                 <p className="text-xs uppercase tracking-[0.12em] text-slate-500">Timestamp</p>
-                <p className="mt-1 text-sm text-slate-900">2026-02-24 19:12 UTC</p>
+                <p className="mt-1 text-sm text-slate-900">
+                  <LiveUtcTimestamp />
+                </p>
               </div>
             </div>
           </aside>
