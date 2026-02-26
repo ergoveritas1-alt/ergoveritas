@@ -7,3 +7,7 @@ dist
 dev.db
 dev.db-journal
 coverage
+.vercel
+.env*.local
+.DS_Store
+tsconfig.tsbuildinfo

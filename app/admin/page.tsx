@@ -1,5 +1,5 @@
-import { AdminClient } from "@/components/admin-client";
+import { redirect } from "next/navigation";
 
 export default function AdminPage() {
-  return <AdminClient />;
+  redirect("/check_exposure");
 }

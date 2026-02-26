@@ -60,3 +60,10 @@ export const updateDisputeStatusSchema = z.object({
 export const receiptIdSchema = z.object({
   id: z.string().min(1)
 });
+
+export const contactFormSchema = z.object({
+  name: z.string().min(1).max(120),
+  email: z.string().email().max(254),
+  company: z.string().max(160).optional().default(""),
+  message: z.string().min(1).max(5000)
+});
