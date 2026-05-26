@@ -62,6 +62,34 @@ const useCases = [
   }
 ] as const;
 
+const certScoreResources = [
+  {
+    href: "https://certscore.ai/findings",
+    title: "Finding reference library",
+    description: "Review the public taxonomy for privacy, consent, cookie, accessibility, and disclosure signals."
+  },
+  {
+    href: "https://certscore.ai/api-pulse",
+    title: "CertScore Pulse API",
+    description: "Generate agent-readable website risk summaries for public URLs."
+  },
+  {
+    href: "https://certscore.ai/gdpr",
+    title: "GDPR website scanner",
+    description: "Review public-web signals around consent timing, cookies, tracking, replay, and disclosures."
+  },
+  {
+    href: "https://certscore.ai/ccpa",
+    title: "CCPA / CPRA scanner",
+    description: "Surface opt-out, sensitive-context, cookie, tracker, and policy-runtime review signals."
+  },
+  {
+    href: "https://certscore.ai/guides/website-consent-audit-checklist",
+    title: "Website consent audit checklist",
+    description: "A practical checklist for reviewing consent behavior, reject flows, and retained evidence."
+  }
+] as const;
+
 export default function HomePage() {
   const structuredData = {
     "@context": "https://schema.org",
@@ -225,7 +253,7 @@ export default function HomePage() {
 
       <section className="rounded-2xl border border-slate-200 bg-white px-6 py-10 sm:px-10">
         <p className="text-xs uppercase tracking-[0.18em] text-slate-500">Related monitoring</p>
-        <div className="mt-3 grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
+        <div className="mt-3 grid gap-6 lg:grid-cols-[1fr_auto] lg:items-start">
           <div>
             <h2 className="text-2xl font-semibold tracking-tight text-slate-900">
               Website compliance signals for public web properties
@@ -235,6 +263,18 @@ export default function HomePage() {
               accessibility, and policy-runtime risk signals, CertScore provides website scans and
               finding references for operational review.
             </p>
+            <div className="mt-6 grid gap-3 md:grid-cols-2">
+              {certScoreResources.map((resource) => (
+                <a
+                  key={resource.href}
+                  href={resource.href}
+                  className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm no-underline transition hover:border-slate-300 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-300 focus-visible:ring-offset-2"
+                >
+                  <span className="font-semibold text-slate-900">{resource.title}</span>
+                  <span className="mt-1 block leading-relaxed text-slate-600">{resource.description}</span>
+                </a>
+              ))}
+            </div>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
             <a
