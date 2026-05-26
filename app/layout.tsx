@@ -115,6 +115,12 @@ export default function RootLayout({
                 >
                   Legal &amp; Transparency
                 </Link>
+                <a
+                  href="https://certscore.ai/findings"
+                  className="no-underline transition hover:text-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-300 focus-visible:ring-offset-2"
+                >
+                  CertScore findings
+                </a>
               </nav>
             </div>
             <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 pb-6 text-xs text-slate-400">

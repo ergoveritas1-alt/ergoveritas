@@ -77,6 +77,14 @@ export default function HomePage() {
         url: "https://ergoveritas.com",
         description:
           "Creative content IP protection with creation proof, Common Crawl exposure monitoring, and evidence-ready reporting."
+      },
+      {
+        "@type": "SoftwareApplication",
+        name: "CertScore",
+        url: "https://certscore.ai",
+        applicationCategory: "BusinessApplication",
+        description:
+          "Website privacy, consent, cookie, tracking, accessibility, and policy-runtime risk signal monitoring."
       }
     ]
   };
@@ -212,6 +220,36 @@ export default function HomePage() {
               <p className="mt-2 text-sm leading-relaxed text-slate-700">{item.description}</p>
             </article>
           ))}
+        </div>
+      </section>
+
+      <section className="rounded-2xl border border-slate-200 bg-white px-6 py-10 sm:px-10">
+        <p className="text-xs uppercase tracking-[0.18em] text-slate-500">Related monitoring</p>
+        <div className="mt-3 grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
+          <div>
+            <h2 className="text-2xl font-semibold tracking-tight text-slate-900">
+              Website compliance signals for public web properties
+            </h2>
+            <p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-700">
+              For teams that also need to monitor privacy, cookie consent, third-party tracking,
+              accessibility, and policy-runtime risk signals, CertScore provides website scans and
+              finding references for operational review.
+            </p>
+          </div>
+          <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
+            <a
+              href="https://certscore.ai/findings"
+              className="inline-flex min-h-11 items-center justify-center rounded-xl bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white no-underline shadow-sm shadow-slate-300/80 transition hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 focus-visible:ring-offset-2"
+            >
+              View CertScore findings
+            </a>
+            <a
+              href="https://certscore.ai"
+              className="inline-flex min-h-11 items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 no-underline transition hover:border-slate-400 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-300 focus-visible:ring-offset-2"
+            >
+              Visit CertScore.ai
+            </a>
+          </div>
         </div>
       </section>
 
