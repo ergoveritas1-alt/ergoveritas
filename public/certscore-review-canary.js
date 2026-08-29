@@ -17,6 +17,7 @@
     const granted = {};
     for (let purposeId = 1; purposeId <= 10; purposeId += 1) granted[String(purposeId)] = true;
     tcfState = { eventStatus: "tcloaded", purpose: { consents: granted }, tcString: `CERTSCORE_${config.id.toUpperCase()}_PRE_ACTION` };
+    localStorage.setItem(`certscore_${config.id}_consent_state`, "granted");
     document.cookie = "OptanonConsent=groups%3DC0001%3A1%2CC0002%3A1%2CC0003%3A1%2CC0004%3A1; Max-Age=900; Path=/; SameSite=Lax; Secure";
     window.__tcfapi = function certScoreTcfApi(command, version, callback) {
       if (command === "getTCData" && version === 2 && typeof callback === "function") {
@@ -35,6 +36,7 @@
     const denied = {};
     for (let purposeId = 1; purposeId <= 10; purposeId += 1) denied[String(purposeId)] = false;
     tcfState = { eventStatus: "useractioncomplete", purpose: { consents: denied }, tcString: `CERTSCORE_${config.id.toUpperCase()}_REJECTED` };
+    localStorage.setItem(`certscore_${config.id}_consent_state`, "denied");
     document.cookie = "OptanonConsent=groups%3DC0001%3A1%2CC0002%3A0%2CC0003%3A0%2CC0004%3A0; Max-Age=900; Path=/; SameSite=Lax; Secure";
     const status = root?.querySelector?.("#canary-consent-status") ?? document.querySelector("#canary-consent-status");
     if (status) status.textContent = "Optional purposes rejected.";
