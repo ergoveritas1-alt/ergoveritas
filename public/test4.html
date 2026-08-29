@@ -1,0 +1,35 @@
+<!-- CANARY TEST PAGE — intentional non-compliance for scanner validation — see /test-environment-notice -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>CertScore review canary — test 4</title>
+  <style>body{font:16px/1.5 system-ui;max-width:760px;margin:40px auto;padding:0 20px}.banner{border:2px solid #1d4ed8;border-radius:12px;padding:18px}.banner button{margin:8px 8px 0 0;padding:9px 12px}</style>
+</head>
+<body>
+  <main data-certscore-canary="openai-review-test4">
+    <h1>Privacy preflight canary — test 4</h1>
+    <p>Owned synthetic fixture with six cookie signatures, six tracker requests, combined fingerprinting, session replay, and delayed consent controls.</p>
+    <div id="delayed-consent" aria-live="polite">Consent surface loads after a bounded delay.</div>
+  </main>
+  <script>
+    window.__CERTSCORE_REVIEW_CANARY__ = {
+      id: "test4",
+      controls: "delayed",
+      fingerprint: "combined",
+      cookies: ["hubspotutk", "__hstc", "__hssc", "_ym_visorc_404", "_cb", "amplitude_id_test4"],
+      trackers: [
+        "https://www.google-analytics.com/g/collect?v=2&tid=G-TEST000004&cid=certscore-test4&en=page_view",
+        "https://www.facebook.com/tr?id=000000000000004&ev=PageView&noscript=1",
+        "https://www.clarity.ms/collect?tid=certscore-test4",
+        "https://static.hotjar.com/c/hotjar-100004.js?sv=7",
+        "https://rs.fullstory.com/s/fs.js?certscore=test4",
+        "https://analytics.tiktok.com/i18n/pixel/events.js?certscore=test4"
+      ]
+    };
+  </script>
+  <script src="/certscore-review-canary.js"></script>
+</body>
+</html>

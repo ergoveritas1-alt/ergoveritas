@@ -1,0 +1,36 @@
+<!-- CANARY TEST PAGE — intentional non-compliance for scanner validation — see /test-environment-notice -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>CertScore review canary — test 3</title>
+  <style>body{font:16px/1.5 system-ui;max-width:760px;margin:40px auto;padding:0 20px}</style>
+</head>
+<body>
+  <main data-certscore-canary="openai-review-test3">
+    <h1>Privacy preflight canary — test 3</h1>
+    <p>Owned synthetic OneTrust-style fixture with six baseline cookie signatures, six tracker requests, device/canvas fingerprinting, session replay, and Accept/Reject/Options controls inside an open shadow root. Reject deterministically confirms refusal, then emits bounded synthetic post-refusal evidence.</p>
+    <div id="consent-shadow-host"></div>
+  </main>
+  <script>
+    window.__CERTSCORE_REVIEW_CANARY__ = {
+      id: "test3",
+      controls: "shadow",
+      postRefusal: "reject_ignored",
+      fingerprint: "device_canvas",
+      cookies: ["_gcl_au", "__gads", "_uetsid", "_uetvid", "_ttp", "_scid"],
+      trackers: [
+        "https://www.google-analytics.com/g/collect?v=2&tid=G-TEST000003&cid=certscore-test3&en=page_view",
+        "https://www.facebook.com/tr?id=000000000000003&ev=PageView&noscript=1",
+        "https://www.clarity.ms/collect?tid=certscore-test3",
+        "https://static.hotjar.com/c/hotjar-100003.js?sv=7",
+        "https://rs.fullstory.com/s/fs.js?certscore=test3",
+        "https://api2.amplitude.com/2/httpapi?certscore=test3"
+      ]
+    };
+  </script>
+  <script src="/certscore-review-canary.js"></script>
+</body>
+</html>

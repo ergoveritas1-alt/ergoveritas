@@ -1,0 +1,38 @@
+<!-- CANARY TEST PAGE — intentional non-compliance for scanner validation — see /test-environment-notice -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>CertScore review canary — test 1</title>
+  <style>body{font:16px/1.5 system-ui;max-width:760px;margin:40px auto;padding:0 20px}.banner{border:2px solid #334155;border-radius:12px;padding:18px}.banner button{margin:8px 8px 0 0;padding:9px 12px}</style>
+</head>
+<body>
+  <main data-certscore-canary="openai-review-test1">
+    <h1>Privacy preflight canary — test 1</h1>
+    <p>Owned synthetic fixture with six cookie signatures, six tracker requests, canvas/audio fingerprinting, and session-replay endpoints.</p>
+    <section class="banner" role="dialog" aria-label="Cookie choices">
+      <strong>Cookie choices</strong><br>
+      <button>Reject optional cookies</button><button>Manage choices</button><button>Accept all cookies</button>
+    </section>
+  </main>
+  <script>
+    window.__CERTSCORE_REVIEW_CANARY__ = {
+      id: "test1",
+      controls: "direct",
+      fingerprint: "canvas_audio",
+      cookies: ["_ga_TEST1", "_gid", "_fbp", "_clck", "_hjSessionUser_100001", "fs_uid"],
+      trackers: [
+        "https://www.google-analytics.com/g/collect?v=2&tid=G-TEST000001&cid=certscore-test1&en=page_view",
+        "https://www.facebook.com/tr?id=000000000000001&ev=PageView&noscript=1",
+        "https://www.clarity.ms/collect?tid=certscore-test1",
+        "https://static.hotjar.com/c/hotjar-100001.js?sv=7",
+        "https://rs.fullstory.com/s/fs.js?certscore=test1",
+        "https://api.segment.io/v1/track?certscore=test1"
+      ]
+    };
+  </script>
+  <script src="/certscore-review-canary.js"></script>
+</body>
+</html>
