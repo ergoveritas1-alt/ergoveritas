@@ -11,13 +11,14 @@
 <body>
   <main data-certscore-canary="openai-review-test4">
     <h1>Privacy preflight canary — test 4</h1>
-    <p>Owned synthetic fixture with six cookie signatures, six tracker requests, combined fingerprinting, session replay, and delayed consent controls.</p>
+    <p>Owned synthetic fixture with six cookie signatures, six tracker requests, combined fingerprinting, session replay, delayed consent controls, and a deterministic Reject observation.</p>
     <div id="delayed-consent" aria-live="polite">Consent surface loads after a bounded delay.</div>
   </main>
   <script>
     window.__CERTSCORE_REVIEW_CANARY__ = {
       id: "test4",
       controls: "delayed",
+      postRefusal: "reject_ignored",
       fingerprint: "combined",
       cookies: ["hubspotutk", "__hstc", "__hssc", "_ym_visorc_404", "_cb", "amplitude_id_test4"],
       trackers: [

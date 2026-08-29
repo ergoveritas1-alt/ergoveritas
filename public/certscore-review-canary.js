@@ -16,7 +16,7 @@
   if (config.postRefusal === "reject_ignored") {
     const granted = {};
     for (let purposeId = 1; purposeId <= 10; purposeId += 1) granted[String(purposeId)] = true;
-    tcfState = { eventStatus: "tcloaded", purpose: { consents: granted }, tcString: "CERTSCORE_TEST3_PRE_ACTION" };
+    tcfState = { eventStatus: "tcloaded", purpose: { consents: granted }, tcString: `CERTSCORE_${config.id.toUpperCase()}_PRE_ACTION` };
     document.cookie = "OptanonConsent=groups%3DC0001%3A1%2CC0002%3A1%2CC0003%3A1%2CC0004%3A1; Max-Age=900; Path=/; SameSite=Lax; Secure";
     window.__tcfapi = function certScoreTcfApi(command, version, callback) {
       if (command === "getTCData" && version === 2 && typeof callback === "function") {
@@ -25,6 +25,28 @@
       }
       if (typeof callback === "function") callback(null, false);
     };
+  }
+
+  function registerRejectControl(root) {
+    if (config.postRefusal !== "reject_ignored") return;
+    const reject = root?.querySelector?.("#onetrust-reject-all-handler");
+    reject?.addEventListener("click", () => {
+      const denied = {};
+      for (let purposeId = 1; purposeId <= 10; purposeId += 1) denied[String(purposeId)] = false;
+      tcfState = { eventStatus: "useractioncomplete", purpose: { consents: denied }, tcString: `CERTSCORE_${config.id.toUpperCase()}_REJECTED` };
+      document.cookie = "OptanonConsent=groups%3DC0001%3A1%2CC0002%3A0%2CC0003%3A0%2CC0004%3A0; Max-Age=900; Path=/; SameSite=Lax; Secure";
+      const status = root.querySelector?.("#canary-consent-status");
+      if (status) status.textContent = "Optional purposes rejected.";
+      window.setTimeout(() => {
+        document.cookie = `_gid=GA1.1.CERTSCORE_${config.id.toUpperCase()}_POST_REFUSAL; Max-Age=900; Path=/; SameSite=Lax; Secure`;
+        fetch(`https://www.google-analytics.com/g/collect?v=2&tid=G-${config.id.toUpperCase()}&cid=certscore-${config.id}&en=reject_ignored`, {
+          cache: "no-store",
+          credentials: "omit",
+          mode: "no-cors",
+          referrerPolicy: "no-referrer",
+        }).catch(() => {});
+      }, 75);
+    });
   }
 
   const requests = config.trackers.map((url) =>
@@ -96,24 +118,7 @@
     const shadow = host?.attachShadow({ mode: "open" });
     if (shadow) {
       shadow.innerHTML = '<section class="banner" id="onetrust-banner-sdk" role="dialog" aria-label="Cookie choices"><strong>Cookie choices</strong><p>These synthetic controls are intentionally rendered in an open shadow root.</p><button id="onetrust-reject-all-handler">Reject all</button><button id="onetrust-pc-btn-handler">Manage choices</button><button id="onetrust-accept-btn-handler">Accept all cookies</button><p id="canary-consent-status" role="status" aria-live="polite"></p></section>';
-      const reject = shadow.getElementById("onetrust-reject-all-handler");
-      reject?.addEventListener("click", () => {
-        const denied = {};
-        for (let purposeId = 1; purposeId <= 10; purposeId += 1) denied[String(purposeId)] = false;
-        tcfState = { eventStatus: "useractioncomplete", purpose: { consents: denied }, tcString: "CERTSCORE_TEST3_REJECTED" };
-        document.cookie = "OptanonConsent=groups%3DC0001%3A1%2CC0002%3A0%2CC0003%3A0%2CC0004%3A0; Max-Age=900; Path=/; SameSite=Lax; Secure";
-        const status = shadow.getElementById("canary-consent-status");
-        if (status) status.textContent = "Optional purposes rejected.";
-        window.setTimeout(() => {
-          document.cookie = "_gid=GA1.1.CERTSCORE_TEST3_POST_REFUSAL; Max-Age=900; Path=/; SameSite=Lax; Secure";
-          fetch("https://www.google-analytics.com/g/collect?v=2&tid=G-TEST000003&cid=certscore-test3&en=reject_ignored", {
-            cache: "no-store",
-            credentials: "omit",
-            mode: "no-cors",
-            referrerPolicy: "no-referrer",
-          }).catch(() => {});
-        }, 75);
-      });
+      registerRejectControl(shadow);
     }
   }
 
@@ -121,9 +126,14 @@
     setTimeout(() => {
       const delayed = document.getElementById("delayed-consent");
       if (delayed) {
-        delayed.innerHTML = '<section class="banner" role="dialog" aria-label="Cookie choices"><strong>Cookie choices</strong><button>Reject non-essential cookies</button><button>Customize settings</button><button>Agree to all cookies</button></section>';
+        delayed.innerHTML = '<section class="banner" id="onetrust-banner-sdk" role="dialog" aria-label="Cookie choices"><strong>Cookie choices</strong><button id="onetrust-reject-all-handler">Reject non-essential cookies</button><button id="onetrust-pc-btn-handler">Customize settings</button><button id="onetrust-accept-btn-handler">Agree to all cookies</button><p id="canary-consent-status" role="status" aria-live="polite"></p></section>';
+        registerRejectControl(delayed);
       }
     }, 600);
+  }
+
+  if (config.controls === "direct" || config.controls === "stacked") {
+    registerRejectControl(document);
   }
 
   Promise.all(requests).then((trackerRequests) => {

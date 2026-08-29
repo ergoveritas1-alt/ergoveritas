@@ -11,16 +11,18 @@
 <body>
   <main data-certscore-canary="openai-review-test1">
     <h1>Privacy preflight canary — test 1</h1>
-    <p>Owned synthetic fixture with six cookie signatures, six tracker requests, canvas/audio fingerprinting, and session-replay endpoints.</p>
-    <section class="banner" role="dialog" aria-label="Cookie choices">
+    <p>Owned synthetic fixture with six cookie signatures, six tracker requests, canvas/audio fingerprinting, session-replay endpoints, and a deterministic Reject observation.</p>
+    <section class="banner" id="onetrust-banner-sdk" role="dialog" aria-label="Cookie choices">
       <strong>Cookie choices</strong><br>
-      <button>Reject optional cookies</button><button>Manage choices</button><button>Accept all cookies</button>
+      <button id="onetrust-reject-all-handler">Reject optional cookies</button><button id="onetrust-pc-btn-handler">Manage choices</button><button id="onetrust-accept-btn-handler">Accept all cookies</button>
+      <p id="canary-consent-status" role="status" aria-live="polite"></p>
     </section>
   </main>
   <script>
     window.__CERTSCORE_REVIEW_CANARY__ = {
       id: "test1",
       controls: "direct",
+      postRefusal: "reject_ignored",
       fingerprint: "canvas_audio",
       cookies: ["_ga_TEST1", "_gid", "_fbp", "_clck", "_hjSessionUser_100001", "fs_uid"],
       trackers: [

@@ -52,7 +52,7 @@ for (let number = 1; number <= 4; number += 1) {
   assert.match(source, /<meta name="robots" content="noindex, nofollow, noarchive">/);
   assert.match(source, new RegExp(`data-certscore-canary="openai-review-test${number}"`));
   assert.match(source, /src="\/certscore-review-canary\.js"/);
-  if (number === 3) assert.match(source, /postRefusal:\s*"reject_ignored"/);
+  assert.match(source, /postRefusal:\s*"reject_ignored"/);
   if (number !== 3 && number !== 4) {
     assert.match(source, /Reject/i);
     assert.match(source, /Manage|options/i);
@@ -87,6 +87,6 @@ assert.match(runtime, /Reject non-essential cookies[\s\S]*Customize settings[\s\
 assert.match(runtime, /id="onetrust-reject-all-handler"/);
 assert.match(runtime, /id="onetrust-pc-btn-handler"/);
 assert.match(runtime, /id="onetrust-accept-btn-handler"/);
-assert.match(runtime, /CERTSCORE_TEST3_REJECTED/);
+assert.match(runtime, /CERTSCORE_\$\{config\.id\.toUpperCase\(\)\}_REJECTED/);
 
-console.log("Verified test1.html–test4.html: A/R/O with Reject, 6 cookies, 6 tracker requests, 3+ non-essential signals per category, fingerprinting, and session replay on every page; test3 retains deterministic reject evidence.");
+console.log("Verified test1.html–test4.html: A/R/O with deterministic Reject, 6 cookies, 6 tracker requests, 3+ non-essential signals per category, fingerprinting, and session replay on every page.");
