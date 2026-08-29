@@ -27,25 +27,42 @@
     };
   }
 
+  let rejectApplied = false;
+
+  function applyReject(root) {
+    if (config.postRefusal !== "reject_ignored" || rejectApplied) return;
+    rejectApplied = true;
+    const denied = {};
+    for (let purposeId = 1; purposeId <= 10; purposeId += 1) denied[String(purposeId)] = false;
+    tcfState = { eventStatus: "useractioncomplete", purpose: { consents: denied }, tcString: `CERTSCORE_${config.id.toUpperCase()}_REJECTED` };
+    document.cookie = "OptanonConsent=groups%3DC0001%3A1%2CC0002%3A0%2CC0003%3A0%2CC0004%3A0; Max-Age=900; Path=/; SameSite=Lax; Secure";
+    const status = root?.querySelector?.("#canary-consent-status") ?? document.querySelector("#canary-consent-status");
+    if (status) status.textContent = "Optional purposes rejected.";
+    window.setTimeout(() => {
+      document.cookie = `_gid=GA1.1.CERTSCORE_${config.id.toUpperCase()}_POST_REFUSAL; Max-Age=900; Path=/; SameSite=Lax; Secure`;
+      fetch(`https://www.google-analytics.com/g/collect?v=2&tid=G-${config.id.toUpperCase()}&cid=certscore-${config.id}&en=reject_ignored`, {
+        cache: "no-store",
+        credentials: "omit",
+        mode: "no-cors",
+        referrerPolicy: "no-referrer",
+      }).catch(() => {});
+    }, 75);
+  }
+
   function registerRejectControl(root) {
     if (config.postRefusal !== "reject_ignored") return;
     const reject = root?.querySelector?.("#onetrust-reject-all-handler");
     reject?.addEventListener("click", () => {
-      const denied = {};
-      for (let purposeId = 1; purposeId <= 10; purposeId += 1) denied[String(purposeId)] = false;
-      tcfState = { eventStatus: "useractioncomplete", purpose: { consents: denied }, tcString: `CERTSCORE_${config.id.toUpperCase()}_REJECTED` };
-      document.cookie = "OptanonConsent=groups%3DC0001%3A1%2CC0002%3A0%2CC0003%3A0%2CC0004%3A0; Max-Age=900; Path=/; SameSite=Lax; Secure";
-      const status = root.querySelector?.("#canary-consent-status");
-      if (status) status.textContent = "Optional purposes rejected.";
-      window.setTimeout(() => {
-        document.cookie = `_gid=GA1.1.CERTSCORE_${config.id.toUpperCase()}_POST_REFUSAL; Max-Age=900; Path=/; SameSite=Lax; Secure`;
-        fetch(`https://www.google-analytics.com/g/collect?v=2&tid=G-${config.id.toUpperCase()}&cid=certscore-${config.id}&en=reject_ignored`, {
-          cache: "no-store",
-          credentials: "omit",
-          mode: "no-cors",
-          referrerPolicy: "no-referrer",
-        }).catch(() => {});
-      }, 75);
+      applyReject(root);
+    });
+  }
+
+  if (config.postRefusal === "reject_ignored") {
+    document.addEventListener("click", (event) => {
+      const rejectInvoked = event.composedPath().some((node) =>
+        node instanceof Element && node.id === "onetrust-reject-all-handler"
+      );
+      if (rejectInvoked) applyReject(document);
     });
   }
 
