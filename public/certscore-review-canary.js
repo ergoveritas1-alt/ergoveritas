@@ -40,6 +40,7 @@
     if (status) status.textContent = "Optional purposes rejected.";
     const banner = root?.querySelector?.("#onetrust-banner-sdk") ?? document.querySelector("#onetrust-banner-sdk");
     if (banner) banner.hidden = true;
+    if (root instanceof Element) root.hidden = true;
     window.setTimeout(() => {
       document.cookie = `_gid=GA1.1.CERTSCORE_${config.id.toUpperCase()}_POST_REFUSAL; Max-Age=900; Path=/; SameSite=Lax; Secure`;
       fetch(`https://www.google-analytics.com/g/collect?v=2&tid=G-${config.id.toUpperCase()}&cid=certscore-${config.id}&en=reject_ignored`, {

@@ -91,5 +91,6 @@ assert.match(runtime, /CERTSCORE_\$\{config\.id\.toUpperCase\(\)\}_REJECTED/);
 assert.match(runtime, /event\.composedPath\(\).*onetrust-reject-all-handler/s);
 assert.match(runtime, /rejectApplied = true/);
 assert.match(runtime, /banner\.hidden = true/);
+assert.match(runtime, /root instanceof Element.*root\.hidden = true/);
 
 console.log("Verified test1.html–test4.html: A/R/O with deterministic Reject, 6 cookies, 6 tracker requests, 3+ non-essential signals per category, fingerprinting, and session replay on every page.");
